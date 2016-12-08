@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-//GRID
 public class Grid {
 	Ship[] shipList;
 	char hitShip = 'H';
@@ -86,13 +85,14 @@ public class Grid {
 						.println("What row and column do you want to place your ship?");
 				userInput = keyb.nextLine().trim();
 				rowInput = Character.toUpperCase(userInput.charAt(0));
-				colInput = Integer.parseInt(userInput.substring(1, 2));
-			} while (userInput.length() != 2);
+				colInput = Integer.parseInt(userInput.substring(1));
+			} while (userInput.length() > 3);
 			shipList[shipNum].row = rowInput - 65;
 			shipList[shipNum].col = colInput - 1;
 			System.out.println("the ship " + shipList[shipNum] + "'s row is "
 					+ shipList[shipNum].row + " and the column is "
-					+ shipList[shipNum].col + " and the ship's boolean isVertical is "
+					+ shipList[shipNum].col
+					+ " and the ship's boolean isVertical is "
 					+ shipList[shipNum].isVertical);
 		}
 	}
@@ -118,16 +118,8 @@ public class Grid {
 			}
 			for (int c = 0; c < board.length; c++) {
 				// TODO figure out how to place ships
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				System.out.print(board[r][c] + " ");
+				
 			}
 			System.out.println();
 		}
