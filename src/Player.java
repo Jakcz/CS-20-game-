@@ -3,7 +3,7 @@ public class Player {
 	Player opponent;
 
 	public void setOpponent(Player opponent) {
-		this.opponent = opponent;
+		this.opponent = opponent; 
 	}
 	
 

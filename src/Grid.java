@@ -7,6 +7,7 @@ public class Grid {
 	char alreadyShot = '*';
 	char shotShip = 'X';
 	boolean[][] moves = new boolean[10][10];
+	boolean[][] shipLocation = new boolean[10][10];
 	char[][] board = new char[10][10];
 
 	Grid() {
@@ -64,18 +65,18 @@ public class Grid {
 			}
 			System.out.println();
 			// Choose Vertical or Horizontal
-			String verticalInput = "";
-			do {
-				System.out
-						.println("do you want to place the ship horizontally or vertically? (H/V)");
-				verticalInput = keyb.nextLine();
-			} while (!verticalInput.equalsIgnoreCase("H")
-					&& !verticalInput.equalsIgnoreCase("V"));
-			if (verticalInput.equalsIgnoreCase("V")) {
-				shipList[shipNum].isVertical = true;
-			} else {
-				shipList[shipNum].isVertical = false;
-			}
+//			 String verticalInput = "";
+//			 do {
+//			 System.out
+//			 .println("do you want to place the ship horizontally or vertically? (H/V)");
+//			 verticalInput = keyb.nextLine();
+//			 } while (!verticalInput.equalsIgnoreCase("H")
+//			 && !verticalInput.equalsIgnoreCase("V"));
+//			 if (verticalInput.equalsIgnoreCase("V")) {
+//			 shipList[shipNum].isVertical = true;
+//			 } else {
+//			 shipList[shipNum].isVertical = false;
+//			 }
 			// Choose Coordinates
 			String userInput = "";
 			char rowInput;
@@ -89,15 +90,15 @@ public class Grid {
 			} while (userInput.length() > 3);
 			shipList[shipNum].row = rowInput - 65;
 			shipList[shipNum].col = colInput - 1;
-			System.out.println("the ship " + shipList[shipNum] + "'s row is "
-					+ shipList[shipNum].row + " and the column is "
-					+ shipList[shipNum].col
-					+ " and the ship's boolean isVertical is "
-					+ shipList[shipNum].isVertical);
 		}
 	}
 
 	public void printGridWithShips() {
+		// TODO figure out how to place ships
+		// Set the Grid
+		for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
+			shipLocation[shipList[shipNum].row][shipList[shipNum].col] = true;
+		}
 		// Printing Top Labels
 		char charLabel = 'A';
 		System.out.print("  ");
@@ -117,8 +118,11 @@ public class Grid {
 				numLabel++;
 			}
 			for (int c = 0; c < board.length; c++) {
-				// TODO figure out how to place ships
-				System.out.print(board[r][c] + " ");
+					if (shipLocation[r][c] == true) {
+						System.out.print('S' + " ");
+					} else {
+						System.out.print('~' + " ");
+					}
 				
 			}
 			System.out.println();
