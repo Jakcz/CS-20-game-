@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+//GRID
 public class Grid {
 	Ship[] shipList;
 	char hitShip = 'H';
