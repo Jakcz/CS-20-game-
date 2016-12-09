@@ -65,31 +65,32 @@ public class Grid {
 			}
 			System.out.println();
 			// Choose Vertical or Horizontal
-//			 String verticalInput = "";
-//			 do {
-//			 System.out
-//			 .println("do you want to place the ship horizontally or vertically? (H/V)");
-//			 verticalInput = keyb.nextLine();
-//			 } while (!verticalInput.equalsIgnoreCase("H")
-//			 && !verticalInput.equalsIgnoreCase("V"));
-//			 if (verticalInput.equalsIgnoreCase("V")) {
-//			 shipList[shipNum].isVertical = true;
-//			 } else {
-//			 shipList[shipNum].isVertical = false;
-//			 }
-			// Choose Coordinates
-			String userInput = "";
-			char rowInput;
-			int colInput = 0;
+			String verticalInput = "";
 			do {
 				System.out
-						.println("What row and column do you want to place your ship?");
+						.println("do you want to place the ship horizontally or vertically? (H/V)");
+				verticalInput = keyb.nextLine();
+			} while (!verticalInput.equalsIgnoreCase("H")
+					&& !verticalInput.equalsIgnoreCase("V"));
+			if (verticalInput.equalsIgnoreCase("V")) {
+				shipList[shipNum].isVertical = true;
+			} else {
+				shipList[shipNum].isVertical = false;
+			}
+			// Choose Coordinates
+			String userInput = "";
+			char colInput;
+			int rowInput = 0;
+			do {
+				System.out
+						.println("What column and row do you want to place your ship?");
 				userInput = keyb.nextLine().trim();
-				rowInput = Character.toUpperCase(userInput.charAt(0));
-				colInput = Integer.parseInt(userInput.substring(1));
+				colInput = Character.toUpperCase(userInput.charAt(0));
+				rowInput = Integer.parseInt(userInput.substring(1));
 			} while (userInput.length() > 3);
-			shipList[shipNum].row = rowInput - 65;
-			shipList[shipNum].col = colInput - 1;
+			shipList[shipNum].col = colInput - 65;
+			shipList[shipNum].row = rowInput - 1;
+			Grid.this.printGridWithShips();
 		}
 	}
 
@@ -118,12 +119,11 @@ public class Grid {
 				numLabel++;
 			}
 			for (int c = 0; c < board.length; c++) {
-					if (shipLocation[r][c] == true) {
-						System.out.print('S' + " ");
-					} else {
-						System.out.print('~' + " ");
-					}
-				
+				if (shipLocation[r][c] == true) {
+					System.out.print('S' + " ");
+				} else {
+					System.out.print('~' + " ");
+				}
 			}
 			System.out.println();
 		}
