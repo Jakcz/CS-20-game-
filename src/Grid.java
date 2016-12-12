@@ -1,4 +1,11 @@
+import java.util.Random;
 import java.util.Scanner;
+
+/**
+ * this class prints the Grids of the Player and opponent
+ * @author Jacky Zhou
+ * @lastedited 2016-12-12
+ */
 
 public class Grid {
 	Ship[] shipList;
@@ -16,9 +23,11 @@ public class Grid {
 				new Ship(4), new Ship(5) };
 		shipList = tmpShipList;
 	}
-
+	
+	/**
+	 * this method prints the Player's starting grid so that they can place the ships
+	 */
 	public void printPlayerGrid() {
-
 		// Printing Top Labels
 		char labels = 'A';
 		System.out.print("  ");
@@ -50,7 +59,10 @@ public class Grid {
 						+ " PLAYER: PLACE YOUR SHIPS   \n+--------------------------+");
 
 	}
-
+	/**
+	 * this method gets the ship info from the Player and is responsible for setting the variables of all the ships
+	 */
+	
 	public void setShipInfo() {
 		Scanner keyb = new Scanner(System.in);
 		for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
@@ -90,16 +102,20 @@ public class Grid {
 			} while (userInput.length() > 3);
 			shipList[shipNum].col = colInput - 65;
 			shipList[shipNum].row = rowInput - 1;
-			Grid.this.printGridWithShips();
+			Grid.this.printGridWithShips(shipList, shipNum);
 		}
 	}
+	
+	/**
+	 * this method prints out the grid with the ship placed on the board
+	 * @param Ship[] shipList (the array of ships to be placed)
+	 * @param int shipNum (the index of the ship being placed)
+	 */
 
-	public void printGridWithShips() {
+	public void printGridWithShips(Ship[] shipList, int shipNum) {
 		// TODO figure out how to place ships
 		// Set the Grid
-		for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
-			shipLocation[shipList[shipNum].row][shipList[shipNum].col] = true;
-		}
+		shipLocation[shipList[shipNum].row][shipList[shipNum].col] = true;
 		// Printing Top Labels
 		char charLabel = 'A';
 		System.out.print("  ");
@@ -120,6 +136,13 @@ public class Grid {
 			}
 			for (int c = 0; c < board.length; c++) {
 				if (shipLocation[r][c] == true) {
+					for (int shipSize = 0; shipSize < shipList[shipNum].size + 0; shipSize++) {
+						if (shipList[shipNum].isVertical == true) {
+							shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = true;
+						} else {
+							shipLocation[shipList[shipNum].row][shipList[shipNum].col + shipSize] = true;
+						}
+					}
 					System.out.print('S' + " ");
 				} else {
 					System.out.print('~' + " ");
@@ -127,5 +150,19 @@ public class Grid {
 			}
 			System.out.println();
 		}
+	}
+	
+	/**
+	 * this method sets the computer's ship info
+	 */
+	public void setOpponentShipInfo() {
+		for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
+			if (Math.random() < 0.5) {
+				shipList[shipNum].isVertical = true;
+			} else {
+				shipList[shipNum].isVertical = false;
+			}
+		}
+		
 	}
 }
