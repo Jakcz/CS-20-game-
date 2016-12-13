@@ -10,7 +10,6 @@ public class Ship {
 		this.hits = 0;
 	}
 	
-	
 	public static boolean isHit() {
 		return false;
 	}

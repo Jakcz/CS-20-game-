@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 /**
  * this class prints the Grids of the Player and opponent
+ * 
  * @author Jacky Zhou
  * @lastedited 2016-12-12
  */
@@ -23,9 +24,10 @@ public class Grid {
 				new Ship(4), new Ship(5) };
 		shipList = tmpShipList;
 	}
-	
+
 	/**
-	 * this method prints the Player's starting grid so that they can place the ships
+	 * this method prints the Player's starting grid so that they can place the
+	 * ships
 	 */
 	public void printPlayerGrid() {
 		// Printing Top Labels
@@ -59,10 +61,12 @@ public class Grid {
 						+ " PLAYER: PLACE YOUR SHIPS   \n+--------------------------+");
 
 	}
+
 	/**
-	 * this method gets the ship info from the Player and is responsible for setting the variables of all the ships
+	 * this method gets the ship info from the Player and is responsible for
+	 * setting the variables of all the ships
 	 */
-	
+
 	public void setShipInfo() {
 		Scanner keyb = new Scanner(System.in);
 		for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
@@ -93,29 +97,47 @@ public class Grid {
 			String userInput = "";
 			char colInput;
 			int rowInput = 0;
-			do {
-				System.out
-						.println("What column and row do you want to place your ship?");
-				userInput = keyb.nextLine().trim();
-				colInput = Character.toUpperCase(userInput.charAt(0));
-				rowInput = Integer.parseInt(userInput.substring(1));
-			} while (userInput.length() > 3);
-			shipList[shipNum].col = colInput - 65;
-			shipList[shipNum].row = rowInput - 1;
-			Grid.this.printGridWithShips(shipList, shipNum);
+			while (true) {
+				try {
+					System.out
+							.println("What column and row do you want to place your ship?");
+					userInput = keyb.nextLine().trim();
+					colInput = Character.toUpperCase(userInput.charAt(0));
+					rowInput = Integer.parseInt(userInput.substring(1));
+					shipList[shipNum].col = colInput - 65;
+					shipList[shipNum].row = rowInput - 1;
+					Grid.this.printGridWithShips(shipList, shipNum);
+					break;
+				} catch (IndexOutOfBoundsException e) {
+					System.out.println("INVALID PLACEMENT!");
+				}
+			}
 		}
 	}
-	
+
 	/**
 	 * this method prints out the grid with the ship placed on the board
-	 * @param Ship[] shipList (the array of ships to be placed)
+	 * 
+	 * @param Ship
+	 *            [] shipList (the array of ships to be placed)
 	 * @param int shipNum (the index of the ship being placed)
 	 */
 
 	public void printGridWithShips(Ship[] shipList, int shipNum) {
-		// TODO figure out how to place ships
 		// Set the Grid
-		shipLocation[shipList[shipNum].row][shipList[shipNum].col] = true;
+		try {
+			shipLocation[shipList[shipNum].row][shipList[shipNum].col] = true;
+			for (int shipSize = 0; shipSize < shipList[shipNum].size + 0; shipSize++) {
+				if (shipList[shipNum].isVertical == true) {
+					shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = true;
+				} else {
+					shipLocation[shipList[shipNum].row][shipList[shipNum].col
+							+ shipSize] = true;
+				}
+			}
+		} catch (IndexOutOfBoundsException e) {
+			return;
+		}
 		// Printing Top Labels
 		char charLabel = 'A';
 		System.out.print("  ");
@@ -136,13 +158,6 @@ public class Grid {
 			}
 			for (int c = 0; c < board.length; c++) {
 				if (shipLocation[r][c] == true) {
-					for (int shipSize = 0; shipSize < shipList[shipNum].size + 0; shipSize++) {
-						if (shipList[shipNum].isVertical == true) {
-							shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = true;
-						} else {
-							shipLocation[shipList[shipNum].row][shipList[shipNum].col + shipSize] = true;
-						}
-					}
 					System.out.print('S' + " ");
 				} else {
 					System.out.print('~' + " ");
@@ -151,7 +166,7 @@ public class Grid {
 			System.out.println();
 		}
 	}
-	
+
 	/**
 	 * this method sets the computer's ship info
 	 */
@@ -163,6 +178,6 @@ public class Grid {
 				shipList[shipNum].isVertical = false;
 			}
 		}
-		
+
 	}
 }

@@ -6,6 +6,4 @@ public class Player {
 		this.opponent = opponent; 
 	}
 	
-
-
 }

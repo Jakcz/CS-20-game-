@@ -1,5 +1,11 @@
 import java.util.Scanner;
 
+/**
+ * this class runs the game 
+ * @author 499072002
+ *
+ */
+
 public class Main {
 
 	Player player1 = new Player();
@@ -20,7 +26,6 @@ public class Main {
 			if (menuOption == 1) {
 				player1.playerBoard.printPlayerGrid();
 				player1.playerBoard.setShipInfo();
-//				player1.playerBoard.printGridWithShips();
 
 				// System.out.println("do you want to play again? (yes/no)");
 				// playAgain = keyb.nextLine();
@@ -30,44 +35,9 @@ public class Main {
 		} while (playAgain.equalsIgnoreCase("yes") || menuOption == 2);
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	// Win Message
-	
+
 	/*
 	 * System.out.println(
 	 * " __     __                 __          __  _           _        __  \n"
@@ -83,11 +53,11 @@ public class Main {
 	 * "    |_|     \\___/   \\__,_|     \\/  \\/     |_| |_| |_| (_)   (_)  | |\n"
 	 * +
 	 * "                                                                /_/ \n"
-	 * );*/
-	
-	
+	 * );
+	 */
+
 	// Lose Message
-	
+
 	/*
 	 * System.out.println(
 	 * " __     __                  _                             _          __\n"
