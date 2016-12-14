@@ -26,6 +26,8 @@ public class Main {
 			if (menuOption == 1) {
 				player1.playerBoard.printPlayerGrid();
 				player1.playerBoard.setShipInfo();
+//				player1.playerBoard.setOpponentShipInfo();
+				
 
 				// System.out.println("do you want to play again? (yes/no)");
 				// playAgain = keyb.nextLine();

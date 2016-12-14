@@ -1,6 +1,6 @@
 public class Player {
-	Grid playerBoard = new Grid();
 	Player opponent;
+	Grid playerBoard = new Grid();
 
 	public void setOpponent(Player opponent) {
 		this.opponent = opponent; 

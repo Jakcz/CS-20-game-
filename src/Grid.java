@@ -5,7 +5,7 @@ import java.util.Scanner;
  * this class prints the Grids of the Player and opponent
  * 
  * @author Jacky Zhou
- * @lastedited 2016-12-12
+ * @lastedited 2016-12-14
  */
 
 public class Grid {
@@ -112,6 +112,7 @@ public class Grid {
 					System.out.println("INVALID PLACEMENT!");
 				}
 			}
+
 		}
 	}
 
@@ -125,18 +126,14 @@ public class Grid {
 
 	public void printGridWithShips(Ship[] shipList, int shipNum) {
 		// Set the Grid
-		try {
-			shipLocation[shipList[shipNum].row][shipList[shipNum].col] = true;
-			for (int shipSize = 0; shipSize < shipList[shipNum].size + 0; shipSize++) {
-				if (shipList[shipNum].isVertical == true) {
-					shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = true;
-				} else {
-					shipLocation[shipList[shipNum].row][shipList[shipNum].col
-							+ shipSize] = true;
-				}
+		shipLocation[shipList[shipNum].row][shipList[shipNum].col] = true;
+		for (int shipSize = 1; shipSize < shipList[shipNum].size; shipSize++) {
+			if (shipList[shipNum].isVertical == true) {
+				shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = true;
+			} else {
+				shipLocation[shipList[shipNum].row][shipList[shipNum].col
+						+ shipSize] = true;
 			}
-		} catch (IndexOutOfBoundsException e) {
-			return;
 		}
 		// Printing Top Labels
 		char charLabel = 'A';
@@ -171,13 +168,14 @@ public class Grid {
 	 * this method sets the computer's ship info
 	 */
 	public void setOpponentShipInfo() {
+		Random rng = new Random();
 		for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
-			if (Math.random() < 0.5) {
+			if (rng.nextInt() < 0.5) {
 				shipList[shipNum].isVertical = true;
 			} else {
 				shipList[shipNum].isVertical = false;
 			}
-		}
 
+		}
 	}
 }
