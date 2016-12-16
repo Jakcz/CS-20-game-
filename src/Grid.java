@@ -5,7 +5,7 @@ import java.util.Scanner;
  * this class prints the Grids of the Player and opponent
  * 
  * @author Jacky Zhou
- * @lastedited 2016-12-14
+ * @lastedited 2016-12-15
  */
 
 public class Grid {
@@ -66,7 +66,6 @@ public class Grid {
 	 * this method gets the ship info from the Player and is responsible for
 	 * setting the variables of all the ships
 	 */
-
 	public void setShipInfo() {
 		Scanner keyb = new Scanner(System.in);
 		for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
@@ -118,10 +117,8 @@ public class Grid {
 
 	/**
 	 * this method prints out the grid with the ship placed on the board
-	 * 
-	 * @param Ship
-	 *            [] shipList (the array of ships to be placed)
-	 * @param int shipNum (the index of the ship being placed)
+	 * @param shipList Ship [](the array of ships to be placed)
+	 * @param shipNum int (the index of the ship being placed)
 	 */
 
 	public void printGridWithShips(Ship[] shipList, int shipNum) {
@@ -135,6 +132,7 @@ public class Grid {
 						+ shipSize] = true;
 			}
 		}
+		//TODO fix printing out invalid entries
 		// Printing Top Labels
 		char charLabel = 'A';
 		System.out.print("  ");
@@ -168,6 +166,7 @@ public class Grid {
 	 * this method sets the computer's ship info
 	 */
 	public void setOpponentShipInfo() {
+		// TODO place computer's ships
 		Random rng = new Random();
 		for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
 			if (rng.nextInt() < 0.5) {

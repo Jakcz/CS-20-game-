@@ -19,10 +19,10 @@ public class Main {
 			do {
 				System.out
 						.println("+------------------------+\n+ WELCOME TO BATTLESHIP! +\n+------------------------+"
-								+ "\n   1.Player VS Computer   \n   2.Exit                 \n+------------------------+"
+								+ "\n   1.Player VS Computer   \n   2.Continue             \n   3.Exit                 \n+------------------------+"
 								+ "\n Please Select an Option  \n+------------------------+");
 				menuOption = Integer.parseInt(keyb.nextLine());
-			} while (menuOption != 1 && menuOption != 2);
+			} while (menuOption != 1 && menuOption != 2 && menuOption != 3);
 			if (menuOption == 1) {
 				player1.playerBoard.printPlayerGrid();
 				player1.playerBoard.setShipInfo();
@@ -31,10 +31,12 @@ public class Main {
 
 				// System.out.println("do you want to play again? (yes/no)");
 				// playAgain = keyb.nextLine();
+			} else if (menuOption == 2) {
+				System.out.println("WORK IN PROGRESS");
 			} else {
 				break;
 			}
-		} while (playAgain.equalsIgnoreCase("yes") || menuOption == 2);
+		} while (playAgain.equalsIgnoreCase("yes") || menuOption == 3);
 
 	}
 
