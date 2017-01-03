@@ -20,7 +20,8 @@ public class Grid {
 
 	Grid() {
 		// Make Ships
-		Ship[] tmpShipList = { new Ship(2), new Ship(3), new Ship(3), new Ship(4), new Ship(5) };
+		Ship[] tmpShipList = { new Ship(2), new Ship(3), new Ship(3),
+				new Ship(4), new Ship(5) };
 		shipList = tmpShipList;
 	}
 
@@ -54,9 +55,10 @@ public class Grid {
 			System.out.println();
 		}
 
-		System.out.println("+--------------------------+\n     1.S-S                  \n     2.S-S-S                \n"
-				+ "     3.S-S-S                \n     4.S-S-S-S              \n     5.S-S-S-S-S            \n"
-				+ " PLAYER: PLACE YOUR SHIPS   \n+--------------------------+");
+		System.out
+				.println("+--------------------------+\n     1.S-S                  \n     2.S-S-S                \n"
+						+ "     3.S-S-S                \n     4.S-S-S-S              \n     5.S-S-S-S-S            \n"
+						+ " PLAYER: PLACE YOUR SHIPS   \n+--------------------------+");
 
 	}
 
@@ -67,7 +69,8 @@ public class Grid {
 	public void setShipInfo() {
 		Scanner keyb = new Scanner(System.in);
 		for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
-			System.out.print("You will be placing ship #" + (shipNum + 1) + " (");
+			System.out.print("You will be placing ship #" + (shipNum + 1)
+					+ " (");
 			for (int i = 0; i < shipList[shipNum].size; i++) {
 				if (i == shipList[shipNum].size - 1) {
 					System.out.print("S)");
@@ -79,9 +82,11 @@ public class Grid {
 			// Choose Vertical or Horizontal
 			String verticalInput = "";
 			do {
-				System.out.println("do you want to place the ship horizontally or vertically? (H/V)");
+				System.out
+						.println("do you want to place the ship horizontally or vertically? (H/V)");
 				verticalInput = keyb.nextLine();
-			} while (!verticalInput.equalsIgnoreCase("H") && !verticalInput.equalsIgnoreCase("V"));
+			} while (!verticalInput.equalsIgnoreCase("H")
+					&& !verticalInput.equalsIgnoreCase("V"));
 			if (verticalInput.equalsIgnoreCase("V")) {
 				shipList[shipNum].isVertical = true;
 			} else {
@@ -93,13 +98,15 @@ public class Grid {
 			int rowInput = 0;
 			while (true) {
 				try {
-					System.out.println("What column and row do you want to place your ship?");
+					System.out
+							.println("What column and row do you want to place your ship?");
 					userInput = keyb.nextLine().trim();
 					colInput = Character.toUpperCase(userInput.charAt(0));
 					rowInput = Integer.parseInt(userInput.substring(1));
 					shipList[shipNum].col = colInput - 65;
 					shipList[shipNum].row = rowInput - 1;
-					Grid.this.printGridWithShips(shipList, shipNum);
+					System.out.println(Grid.this.isShipLocationOkay(shipList, shipNum));
+//					Grid.this.printGridWithShips(shipList, shipNum);
 					break;
 				} catch (IndexOutOfBoundsException e) {
 					System.out.println("INVALID PLACEMENT!");
@@ -108,7 +115,43 @@ public class Grid {
 
 		}
 	}
+	
+	public boolean isShipLocationOkay(Ship[] shipList, int shipNum) {
+		try {
+			if (shipLocation[shipList[shipNum].row][shipList[shipNum].col] == false) {
+				shipLocation[shipList[shipNum].row][shipList[shipNum].col] = true;
+				for (int shipSize = 1; shipSize < shipList[shipNum].size; shipSize++) {
+					if (shipList[shipNum].isVertical == true) {
+						if (shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] == false) {
+							shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = true;
+						} else {
 
+						}
+					} else {
+						if (shipLocation[shipList[shipNum].row][shipList[shipNum].col
+								+ shipSize] == false) {
+							shipLocation[shipList[shipNum].row][shipList[shipNum].col
+									+ shipSize] = true;
+						} else {
+
+						}
+					}
+				}
+			}
+		} catch (IndexOutOfBoundsException e) {
+			shipLocation[shipList[shipNum].row][shipList[shipNum].col] = false;
+			for (int shipSize = 1; shipSize < shipList[shipNum].size; shipSize++) {
+				if (shipList[shipNum].isVertical == true) {
+					shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = false;
+				} else {
+					shipLocation[shipList[shipNum].row][shipList[shipNum].col
+							+ shipSize] = false;
+				}
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * this method prints out the grid with the ship placed on the board
 	 * 
@@ -128,16 +171,18 @@ public class Grid {
 						if (shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] == false) {
 							shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = true;
 						} else {
+
 						}
 					} else {
-						if (shipLocation[shipList[shipNum].row][shipList[shipNum].col + shipSize] = false) {
-							shipLocation[shipList[shipNum].row][shipList[shipNum].col + shipSize] = true;
+						if (shipLocation[shipList[shipNum].row][shipList[shipNum].col
+								+ shipSize] == false) {
+							shipLocation[shipList[shipNum].row][shipList[shipNum].col
+									+ shipSize] = true;
 						} else {
+
 						}
 					}
 				}
-			} else {
-
 			}
 		} catch (IndexOutOfBoundsException e) {
 			shipLocation[shipList[shipNum].row][shipList[shipNum].col] = false;
@@ -145,7 +190,8 @@ public class Grid {
 				if (shipList[shipNum].isVertical == true) {
 					shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = false;
 				} else {
-					shipLocation[shipList[shipNum].row][shipList[shipNum].col + shipSize] = false;
+					shipLocation[shipList[shipNum].row][shipList[shipNum].col
+							+ shipSize] = false;
 				}
 			}
 			throw new IndexOutOfBoundsException();
@@ -195,10 +241,13 @@ public class Grid {
 					}
 					shipList[shipNum].col = rng.nextInt((9 - 0) + 1) + 0;
 					shipList[shipNum].row = rng.nextInt((9 - 0) + 1) + 0;
-					System.out.println("the ship " + shipList[shipNum] + "'s boolean isVertical is "
-							+ shipList[shipNum].isVertical + " and the column is " + shipList[shipNum].col
-							+ " and the row is " + shipList[shipNum].row);
-					Grid.this.printGridWithShips(shipList, shipNum);
+					System.out.println("the ship " + shipList[shipNum]
+							+ "'s boolean isVertical is "
+							+ shipList[shipNum].isVertical
+							+ " and the column is " + shipList[shipNum].col
+							+ " and the row is " + shipList[shipNum].row + "");
+					Grid.this.isShipLocationOkay(shipList, shipNum);
+//					Grid.this.printGridWithShips(shipList, shipNum);
 				} catch (IndexOutOfBoundsException e) {
 					shipNum--;
 				}
