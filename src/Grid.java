@@ -20,8 +20,7 @@ public class Grid {
 
 	Grid() {
 		// Make Ships
-		Ship[] tmpShipList = { new Ship(2), new Ship(3), new Ship(3),
-				new Ship(4), new Ship(5) };
+		Ship[] tmpShipList = { new Ship(2), new Ship(3), new Ship(3), new Ship(4), new Ship(5) };
 		shipList = tmpShipList;
 	}
 
@@ -55,22 +54,20 @@ public class Grid {
 			System.out.println();
 		}
 
-		System.out
-				.println("+--------------------------+\n     1.S-S                  \n     2.S-S-S                \n"
-						+ "     3.S-S-S                \n     4.S-S-S-S              \n     5.S-S-S-S-S            \n"
-						+ " PLAYER: PLACE YOUR SHIPS   \n+--------------------------+");
+		System.out.println("+--------------------------+\n     1.S-S                  \n     2.S-S-S                \n"
+				+ "     3.S-S-S                \n     4.S-S-S-S              \n     5.S-S-S-S-S            \n"
+				+ " PLAYER: PLACE YOUR SHIPS   \n+--------------------------+");
 
 	}
 
 	/**
 	 * this method gets the ship info from the Player and is responsible for
-	 * setting the variables of all the ships
+	 * setting the variables of all the Player's ships
 	 */
 	public void setShipInfo() {
 		Scanner keyb = new Scanner(System.in);
 		for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
-			System.out.print("You will be placing ship #" + (shipNum + 1)
-					+ " (");
+			System.out.print("You will be placing ship #" + (shipNum + 1) + " (");
 			for (int i = 0; i < shipList[shipNum].size; i++) {
 				if (i == shipList[shipNum].size - 1) {
 					System.out.print("S)");
@@ -82,11 +79,9 @@ public class Grid {
 			// Choose Vertical or Horizontal
 			String verticalInput = "";
 			do {
-				System.out
-						.println("do you want to place the ship horizontally or vertically? (H/V)");
+				System.out.println("do you want to place the ship horizontally or vertically? (H/V)");
 				verticalInput = keyb.nextLine();
-			} while (!verticalInput.equalsIgnoreCase("H")
-					&& !verticalInput.equalsIgnoreCase("V"));
+			} while (!verticalInput.equalsIgnoreCase("H") && !verticalInput.equalsIgnoreCase("V"));
 			if (verticalInput.equalsIgnoreCase("V")) {
 				shipList[shipNum].isVertical = true;
 			} else {
@@ -98,8 +93,7 @@ public class Grid {
 			int rowInput = 0;
 			while (true) {
 				try {
-					System.out
-							.println("What column and row do you want to place your ship?");
+					System.out.println("What column and row do you want to place your ship?");
 					userInput = keyb.nextLine().trim();
 					colInput = Character.toUpperCase(userInput.charAt(0));
 					rowInput = Integer.parseInt(userInput.substring(1));
@@ -117,22 +111,46 @@ public class Grid {
 
 	/**
 	 * this method prints out the grid with the ship placed on the board
-	 * @param shipList Ship [](the array of ships to be placed)
-	 * @param shipNum int (the index of the ship being placed)
+	 * 
+	 * @param shipList
+	 *            Ship [](the array of ships to be placed)
+	 * @param shipNum
+	 *            int (the index of the ship being placed)
 	 */
 
 	public void printGridWithShips(Ship[] shipList, int shipNum) {
 		// Set the Grid
-		shipLocation[shipList[shipNum].row][shipList[shipNum].col] = true;
-		for (int shipSize = 1; shipSize < shipList[shipNum].size; shipSize++) {
-			if (shipList[shipNum].isVertical == true) {
-				shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = true;
+		try {
+			if (shipLocation[shipList[shipNum].row][shipList[shipNum].col] == false) {
+				shipLocation[shipList[shipNum].row][shipList[shipNum].col] = true;
+				for (int shipSize = 1; shipSize < shipList[shipNum].size; shipSize++) {
+					if (shipList[shipNum].isVertical == true) {
+						if (shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] == false) {
+							shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = true;
+						} else {
+						}
+					} else {
+						if (shipLocation[shipList[shipNum].row][shipList[shipNum].col + shipSize] = false) {
+							shipLocation[shipList[shipNum].row][shipList[shipNum].col + shipSize] = true;
+						} else {
+						}
+					}
+				}
 			} else {
-				shipLocation[shipList[shipNum].row][shipList[shipNum].col
-						+ shipSize] = true;
+
 			}
+		} catch (IndexOutOfBoundsException e) {
+			shipLocation[shipList[shipNum].row][shipList[shipNum].col] = false;
+			for (int shipSize = 1; shipSize < shipList[shipNum].size; shipSize++) {
+				if (shipList[shipNum].isVertical == true) {
+					shipLocation[shipList[shipNum].row + shipSize][shipList[shipNum].col] = false;
+				} else {
+					shipLocation[shipList[shipNum].row][shipList[shipNum].col + shipSize] = false;
+				}
+			}
+			throw new IndexOutOfBoundsException();
 		}
-		//TODO fix printing out invalid entries
+		// TODO fix printing out invalid entries
 		// Printing Top Labels
 		char charLabel = 'A';
 		System.out.print("  ");
@@ -141,7 +159,6 @@ public class Grid {
 			charLabel++;
 		}
 		System.out.println();
-
 		// Printing rest of the Grid
 		int numLabel = 1;
 		for (int r = 0; r < board.length; r++) {
@@ -168,13 +185,26 @@ public class Grid {
 	public void setOpponentShipInfo() {
 		// TODO place computer's ships
 		Random rng = new Random();
-		for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
-			if (rng.nextInt() < 0.5) {
-				shipList[shipNum].isVertical = true;
-			} else {
-				shipList[shipNum].isVertical = false;
+		while (true) {
+			for (int shipNum = 0; shipNum < shipList.length; shipNum++) {
+				try {
+					if (rng.nextInt() < 0.5) {
+						shipList[shipNum].isVertical = true;
+					} else {
+						shipList[shipNum].isVertical = false;
+					}
+					shipList[shipNum].col = rng.nextInt((9 - 0) + 1) + 0;
+					shipList[shipNum].row = rng.nextInt((9 - 0) + 1) + 0;
+					System.out.println("the ship " + shipList[shipNum] + "'s boolean isVertical is "
+							+ shipList[shipNum].isVertical + " and the column is " + shipList[shipNum].col
+							+ " and the row is " + shipList[shipNum].row);
+					Grid.this.printGridWithShips(shipList, shipNum);
+				} catch (IndexOutOfBoundsException e) {
+					shipNum--;
+				}
 			}
-
+			break;
 		}
+
 	}
 }

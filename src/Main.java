@@ -24,9 +24,9 @@ public class Main {
 				menuOption = Integer.parseInt(keyb.nextLine());
 			} while (menuOption != 1 && menuOption != 2 && menuOption != 3);
 			if (menuOption == 1) {
-				player1.playerBoard.printPlayerGrid();
-				player1.playerBoard.setShipInfo();
-//				player1.playerBoard.setOpponentShipInfo();
+//				player1.playerBoard.printPlayerGrid();
+//				player1.playerBoard.setShipInfo();
+				player1.opponent.playerBoard.setOpponentShipInfo();
 				
 
 				// System.out.println("do you want to play again? (yes/no)");
